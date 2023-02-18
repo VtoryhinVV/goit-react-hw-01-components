@@ -1,5 +1,15 @@
 import PropTypes from 'prop-types';
-// import {} from 'user.json'
+
+import {
+  ProfileCard,
+  Description,
+  Avatar,
+  TextName,
+  TextInfo,
+  Stats,
+  StatsElem,
+  Quantity,
+} from './Profile.styled';
 
 export default function Profile({
   username,
@@ -9,28 +19,40 @@ export default function Profile({
   stats: { followers, views, likes },
 }) {
   return (
-    <div class="profile">
-      <div class="description">
-        <img src={avatar} alt="User avatar" class="avatar" />
-        <p class="name">{username}</p>
-        <p class="tag">{tag}</p>
-        <p class="location">{location}</p>
-      </div>
+    <ProfileCard>
+      <Description>
+        <Avatar src={avatar} alt="User avatar" width="100" />
+        <TextName>{username}</TextName>
+        <TextInfo>{tag}</TextInfo>
+        <TextInfo>{location}</TextInfo>
+      </Description>
 
-      <ul class="stats">
-        <li>
-          <span class="label">Followers</span>
-          <span class="quantity">{followers}</span>
-        </li>
-        <li>
-          <span class="label">Views</span>
-          <span class="quantity">{views}</span>
-        </li>
-        <li>
-          <span class="label">Likes</span>
-          <span class="quantity">{likes}</span>
-        </li>
-      </ul>
-    </div>
+      <Stats>
+        <StatsElem>
+          <TextInfo>Followers</TextInfo>
+          <Quantity>{followers}</Quantity>
+        </StatsElem>
+        <StatsElem>
+          <TextInfo>Views</TextInfo>
+          <Quantity>{views}</Quantity>
+        </StatsElem>
+        <StatsElem>
+          <TextInfo>Likes</TextInfo>
+          <Quantity>{likes}</Quantity>
+        </StatsElem>
+      </Stats>
+    </ProfileCard>
   );
 }
+
+Profile.propTypes = {
+  username: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+  stats: PropTypes.shape({
+    followers: PropTypes.number.isRequired,
+    views: PropTypes.number.isRequired,
+    likes: PropTypes.number.isRequired,
+  }).isRequired,
+};
